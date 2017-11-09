@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:background="#e7eef7">
+
+    <Button
+        android:id="@+id/btn_test"
+        android:text="Test: open all lock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="同意协议"
+        android:id="@+id/chb1"
+        android:layout_gravity="right|bottom"
+        android:checked="true"
+        android:clickable="false"
+        android:visibility="invisible"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="同意协议"
+        android:id="@+id/chb2"
+        android:layout_gravity="right|bottom"
+        android:checked="true"
+        android:clickable="false"
+        android:visibility="invisible"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="同意协议"
+        android:id="@+id/chb3"
+        android:layout_gravity="right|bottom"
+        android:checked="true"
+        android:clickable="false"
+        android:visibility="invisible"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="同意协议"
+        android:id="@+id/chb4"
+        android:layout_gravity="right|bottom"
+        android:checked="true"
+        android:clickable="false"
+        android:visibility="invisible"/>
+
+    <!-- Keyboard layout -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:gravity="center"
+        android:layout_marginRight="100dp"
+        android:weightSum="1">
+
+        <!--<LinearLayout-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="326dp"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="订单号："-->
+                <!--android:id="@+id/textView"-->
+                <!--android:textSize="30dp" />-->
+
+            <!--<EditText-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/edtnumber"-->
+                <!--android:clickable="false"-->
+                <!--android:gravity="left"-->
+                <!--android:hint="请输入订单号"-->
+                <!--android:maxLength="12"-->
+                <!--android:inputType="number"-->
+                <!--android:textSize="30dp" />-->
+        <!--</LinearLayout>-->
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PIN: "
+                android:id="@+id/textView2"
+                android:textSize="35dp" />
+
+            <EditText
+                android:id="@+id/edtpassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:hint="Please input the PIN"
+                android:inputType="numberPassword"
+                android:maxLength="6"
+                android:textSize="30dp" />
+        </LinearLayout>
+
+        <!-- the 1 row of keyboard -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:weightSum="1"
+            android:layout_weight="0.06">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="1"
+                android:id="@+id/button1"
+                android:layout_weight="0.33"
+                android:textSize="30dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="2"
+                android:id="@+id/button2"
+                android:layout_weight="0.33"
+                android:textSize="30dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="3"
+                android:id="@+id/button3"
+                android:layout_weight="0.33"
+                android:textSize="30dp" />
+        </LinearLayout>
+
+        <!-- the 2 row of keyboard -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="332dp"
+            android:layout_height="60dp"
+            android:weightSum="1">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="4"
+                android:id="@+id/button4"
+                android:layout_weight="0.33"
+                android:textSize="30dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="5"
+                android:id="@+id/button5"
+                android:layout_weight="0.33"
+                android:textSize="30dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="6"
+                android:id="@+id/button6"
+                android:layout_weight="0.33"
+                android:textSize="30dp" />
+        </LinearLayout>
+
+        <!-- the 3 row of button -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="332dp"
+            android:layout_height="60dp"
+            android:weightSum="1">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="7"
+                android:id="@+id/button7"
+                android:layout_weight="0.33"
+                android:textSize="30dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="8"
+                android:id="@+id/button8"
+                android:layout_weight="0.33"
+                android:textSize="30dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="9"
+                android:id="@+id/button9"
+                android:layout_weight="0.33"
+                android:textSize="30dp" />
+        </LinearLayout>
+
+        <!-- the 4 row of button -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="332dp"
+            android:layout_height="60dp">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="Cancel"
+                android:id="@+id/btndelete"
+                android:layout_weight="1"
+                android:textSize="18dp" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="0"
+                android:id="@+id/button0"
+                android:layout_weight="1"
+                android:textSize="30dp" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="Confirm"
+                android:id="@+id/btnenter"
+                android:layout_weight="1"
+                android:textSize="18dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- left scroll image -->
+    <LinearLayout
+        android:id="@+id/slideView"
+        android:layout_height="400dp"
+        android:layout_width="600dp"
+        android:layout_marginLeft="30dp"
+        android:orientation="vertical"
+        android:layout_gravity="left|center_vertical">
+        <fragment
+            android:id="@+id/fragment_cycle_viewpager_content"
+            android:name="cn.androiddevelop.cycleviewpager.lib.CycleViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/relativeLayout" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/relativeLayout">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="content"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--<requestFocus android:layout_gravity="left|bottom" />-->
+</FrameLayout>
