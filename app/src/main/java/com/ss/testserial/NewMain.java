@@ -14,6 +14,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import com.testapplication.R;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -24,6 +26,11 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import android.annotation.SuppressLint;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import cn.androiddevelop.cycleviewpager.lib.CycleViewPager;
 import cn.androiddevelop.cycleviewpager.lib.CycleViewPager.ImageCycleViewListener;
 
@@ -31,6 +38,9 @@ import cn.androiddevelop.cycleviewpager.lib.CycleViewPager.ImageCycleViewListene
 public class NewMain extends Activity implements View.OnClickListener {
     private static final int MSG_CHECK_STATE = 1;
     private static final int MSG_OPEN_ALLDOOR = 2;
+    private static final int MSG_REQUEST_SUCCESS = 3;
+    private static final int MSG_REQUEST_ERROR = 4;
+
     private static final String TAG = "NewMain";
 
     CheckBox[] checkBoxArray = null;
@@ -42,7 +52,10 @@ public class NewMain extends Activity implements View.OnClickListener {
 
     boolean bOpenAllLock = false;
 
-    private Handler handler = new Handler() {
+    private String resJson;
+    private String mInputNumber;
+
+    private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.arg1) {
                 case MSG_CHECK_STATE:
@@ -50,9 +63,38 @@ public class NewMain extends Activity implements View.OnClickListener {
                     break;
                 case MSG_OPEN_ALLDOOR:
                     break;
+                case MSG_REQUEST_SUCCESS:
+                    confirmPwd(resJson, Integer.parseInt(mInputNumber));
+                    //openDoor(Integer.valueOf(number));
+                    break;
+                case MSG_REQUEST_ERROR:
+                    Toast.makeText(getApplication(), "You input PIN is error!", Toast.LENGTH_SHORT).show();
+                    break;
             }
         }
     };
+
+    private void confirmPwd(String resJson, int pwd) {
+        try {
+            JSONArray jsonArray = new JSONArray(resJson);
+            for(int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jo = jsonArray.getJSONObject(i);
+                int pin = jo.getInt("PIN");
+                int nr = jo.getInt("nr");
+                if(pin == pwd){
+                    // PIN is correct
+                    // open the door
+                    openDoor(nr);
+                    // function should return if open the door
+                    return;
+                }
+            }
+            // don't have door open
+            mHandler.sendEmptyMessage(MSG_REQUEST_ERROR);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * if bOpenAllLock equal true, will open all Lock.
@@ -77,18 +119,18 @@ public class NewMain extends Activity implements View.OnClickListener {
                         CheckState();
                         Message msginMessage = new Message();
                         msginMessage.arg1 = MSG_CHECK_STATE;
-                        handler.sendMessage(msginMessage);
+                        mHandler.sendMessage(msginMessage);
                         Message msgoutMessage = new Message();
                         msgoutMessage.arg1 = MSG_OPEN_ALLDOOR;
                         msgoutMessage.arg2 = ret;
-                        handler.sendMessage(msgoutMessage);
+                        mHandler.sendMessage(msgoutMessage);
                     }
                     {
                         // 持续检查板卡状态（native） always check board status (native method)
                         CheckState();
                         Message msginMessage = new Message();
                         msginMessage.arg1 = MSG_CHECK_STATE;
-                        handler.sendMessage(msginMessage);
+                        mHandler.sendMessage(msginMessage);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -349,9 +391,24 @@ public class NewMain extends Activity implements View.OnClickListener {
                     Toast.makeText(getApplicationContext(), "Please input the PIN!", Toast.LENGTH_SHORT).show();    // show information of "password input the PIN"
                     edtpassword.setText("");
                 } else {
+                    mInputNumber = number;
                     // TODO connect server to get the door number which should open
-                    // TODO open the door
-                    openDoor(Integer.valueOf(number));
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                String pwd = NetworkUtils.checkPwd();
+                                if(pwd != null){
+                                    resJson = pwd;
+                                    mHandler.sendEmptyMessage(MSG_REQUEST_SUCCESS);
+                                }else
+                                    mHandler.sendEmptyMessage(MSG_REQUEST_ERROR);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                mHandler.sendEmptyMessage(MSG_REQUEST_ERROR);
+                            }
+                        }
+                    }).start();
                 }
                 break;
         }
