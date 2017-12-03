@@ -239,8 +239,8 @@
     <!-- left scroll image -->
     <LinearLayout
         android:id="@+id/slideView"
-        android:layout_height="400dp"
-        android:layout_width="600dp"
+        android:layout_height="300dp"
+        android:layout_width="450dp"
         android:layout_marginLeft="30dp"
         android:orientation="vertical"
         android:layout_gravity="left|center_vertical">

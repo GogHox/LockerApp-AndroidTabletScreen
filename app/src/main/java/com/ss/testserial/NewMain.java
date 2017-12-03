@@ -57,7 +57,7 @@ public class NewMain extends Activity implements View.OnClickListener {
 
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
-            switch (msg.arg1) {
+            switch (msg.what) {
                 case MSG_CHECK_STATE:
                     showDoorState();
                     break;
@@ -79,11 +79,14 @@ public class NewMain extends Activity implements View.OnClickListener {
             JSONArray jsonArray = new JSONArray(resJson);
             for(int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jo = jsonArray.getJSONObject(i);
+
                 int pin = jo.getInt("PIN");
                 int nr = jo.getInt("nr");
                 if(pin == pwd){
                     // PIN is correct
                     // open the door
+                    Log.i(TAG, "confirmPwd: waiting open door");
+                    Toast.makeText(getApplication(), "waiting open door", Toast.LENGTH_SHORT).show();
                     openDoor(nr);
                     // function should return if open the door
                     return;
