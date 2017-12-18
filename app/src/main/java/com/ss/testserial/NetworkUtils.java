@@ -16,7 +16,7 @@ import okhttp3.Response;
 
 public class NetworkUtils {
 
-    private static String URL_ROOT = "http://192.168.124.132:8080";
+    private static String URL_ROOT = "http://192.168.1.108:8080";
     private static OkHttpClient httpClient = new OkHttpClient();
     private static String TAG = "TAG";
 
@@ -24,7 +24,7 @@ public class NetworkUtils {
 
         Request request = new Request.Builder()
                 .url(URL_ROOT + "/locker")
-                //.addHeader("token", Global.token)
+                .addHeader("token", Global.token)
                 .build();
 
         Response response = httpClient.newCall(request).execute();

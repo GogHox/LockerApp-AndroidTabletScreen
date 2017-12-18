@@ -40,18 +40,13 @@ public class NewMain extends Activity implements View.OnClickListener {
     private static final int MSG_OPEN_ALLDOOR = 2;
     private static final int MSG_REQUEST_SUCCESS = 3;
     private static final int MSG_REQUEST_ERROR = 4;
-
     private static final String TAG = "NewMain";
-
     CheckBox[] checkBoxArray = null;
     private Startwrite ss;
     int[] stateBuf = new int[7];
-
     private int LockIndex = 0;
     InputThread mInputThread;
-
     boolean bOpenAllLock = false;
-
     private String resJson;
     private String mInputNumber;
 
@@ -65,10 +60,11 @@ public class NewMain extends Activity implements View.OnClickListener {
                     break;
                 case MSG_REQUEST_SUCCESS:
                     confirmPwd(resJson, Integer.parseInt(mInputNumber));
-                    //openDoor(Integer.valueOf(number));
+                    // clear up the input field
+                    edtpassword.setText("");
                     break;
                 case MSG_REQUEST_ERROR:
-                    Toast.makeText(getApplication(), "You input PIN is error!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), "Wrong PIN input!", Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -86,10 +82,10 @@ public class NewMain extends Activity implements View.OnClickListener {
                     // PIN is correct
                     // open the door
                     Log.i(TAG, "confirmPwd: waiting open door");
-                    Toast.makeText(getApplication(), "waiting open door", Toast.LENGTH_SHORT).show();
-                    openDoor(nr);
+                    Toast.makeText(getApplication(), "waiting open door", Toast.LENGTH_LONG).show();
                     // function should return if open the door
-                    return;
+                    boolean door = openDoor(nr);
+                    break;
                 }
             }
             // don't have door open
@@ -264,12 +260,12 @@ public class NewMain extends Activity implements View.OnClickListener {
     }
 
     private void initView() {
-        (findViewById(R.id.btn_test)).setOnClickListener(new View.OnClickListener() {
+        /*(findViewById(R.id.btn_test)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bOpenAllLock = true;
             }
-        });
+        });*/
         button0 = (Button) findViewById(R.id.button0);
         button1 = (Button) findViewById(R.id.button1);
         button2 = (Button) findViewById(R.id.button2);
@@ -395,7 +391,7 @@ public class NewMain extends Activity implements View.OnClickListener {
                     edtpassword.setText("");
                 } else {
                     mInputNumber = number;
-                    // TODO connect server to get the door number which should open
+                    // connect server to get the door number which should open
                     new Thread(new Runnable() {
                         @Override
                         public void run() {

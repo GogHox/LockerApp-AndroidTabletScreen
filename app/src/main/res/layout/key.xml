@@ -5,11 +5,11 @@
     android:weightSum="1"
     android:background="#e7eef7">
 
-    <Button
+<!--    <Button
         android:id="@+id/btn_test"
         android:text="Test: open all lock"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" />-->
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -102,7 +102,6 @@
                 android:gravity="left"
                 android:hint="Please input the PIN"
                 android:inputType="numberPassword"
-                android:maxLength="6"
                 android:textSize="30dp" />
         </LinearLayout>
 
